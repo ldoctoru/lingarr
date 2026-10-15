@@ -40,7 +40,7 @@ public class MediaServiceTests
 
         // Configure Sonarr to throw HttpRequestException with 404 status
         sonarrMock
-            .Setup(s => s.GetEpisode(It.IsAny<int>()))
+            .Setup(s => s.GetEpisode(It.IsAny<long>()))
             .ThrowsAsync(new HttpRequestException("Not found", null, HttpStatusCode.NotFound));
 
         // Configure GetShows to return a sample list when called

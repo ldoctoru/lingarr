@@ -51,7 +51,7 @@ public class MovieSync : IMovieSync
             {
                 RadarrId = movie.Id,
                 Title = movie.Title,
-                DateAdded = UtcDateTime.Parse(movie.Added),
+                DateAdded = !string.IsNullOrEmpty(movie.Added) ? UtcDateTime.Parse(movie.Added) : DateTimeOffset.UtcNow,
                 FileName = Path.GetFileNameWithoutExtension(moviePath),
                 Path = Path.GetDirectoryName(moviePath) ?? string.Empty,
                 IncludeInTranslation = defaultInclude
@@ -61,7 +61,7 @@ public class MovieSync : IMovieSync
         else
         {
             movieEntity.Title = movie.Title;
-            movieEntity.DateAdded = UtcDateTime.Parse(movie.Added);
+            movieEntity.DateAdded = !string.IsNullOrEmpty(movie.Added) ? UtcDateTime.Parse(movie.Added) : DateTimeOffset.UtcNow;
             movieEntity.FileName = Path.GetFileNameWithoutExtension(moviePath);
             movieEntity.Path = Path.GetDirectoryName(moviePath) ?? string.Empty;
         }

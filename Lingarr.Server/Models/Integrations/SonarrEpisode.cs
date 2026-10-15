@@ -5,7 +5,7 @@ namespace Lingarr.Server.Models.Integrations;
 public class SonarrEpisode
 {
     [JsonPropertyName("id")]
-    public required int Id { get; set; }
+    public required long Id { get; set; }
     [JsonPropertyName("episodeNumber")]
     public required int EpisodeNumber { get; set; }
     [JsonPropertyName("title")]

@@ -69,7 +69,7 @@ public interface IMediaService
     /// <returns>
     /// A task result containing the lingarr's episode id
     /// </returns>
-    Task<int> GetEpisodeIdOrSyncFromSonarrEpisodeId(int episodeNumber);
+    Task<int> GetEpisodeIdOrSyncFromSonarrEpisodeId(long episodeNumber);
 
     /// <summary>
     /// Sets the include status of a media item for translation.
