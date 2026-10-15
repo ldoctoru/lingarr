@@ -50,6 +50,7 @@ Lingarr Docker images are available from multiple registries:
 |----------|-------|
 | GitHub Container Registry | `ghcr.io/lingarr-translate/lingarr:latest` |
 | Docker Hub | `docker.io/lingarr/lingarr:latest` |
+| GitHub Container Registry (fork with [nexcrate](#using-nexcrate-instead-of-radarr-and-sonarr) support) | `ghcr.io/ldoctoru/lingarr:main` |
 
 ## Setting up Lingarr
 
@@ -221,6 +222,26 @@ user: "1000:1000"  # UID:GID
 ```bash
 --user 1000:1000  # UID:GID
 ```
+
+## Using nexcrate instead of Radarr and Sonarr
+[nexcrate](https://github.com/DerKezorm/nexcrate) answers as Radarr and Sonarr for Bazarr, and Lingarr can read it the same way.
+
+1. In nexcrate, switch on **Settings › System › Bazarr** and create an API key with only the `read` scope.
+2. In Lingarr, enter nexcrate twice, with the same key:
+
+| In Lingarr | URL |
+|------------|-----|
+| Radarr | `http://<nexcrate-host>:8390/bazarr/radarr` |
+| Sonarr | `http://<nexcrate-host>:8390/bazarr/sonarr` |
+
+With `NEXCRATE_URL_BASE` set, the sub path comes first, for example `/nexcrate/bazarr/radarr`.
+
+Things to know:
+- **Every version is its own entry.** A movie in 1080p and 4K shows up twice.
+- **No webhooks.** nexcrate's webhooks use their own format, so Lingarr picks up new media on its scheduled sync.
+- **Paths** are passed as nexcrate sees them. If Lingarr mounts the media elsewhere, use Lingarr's path mapping.
+- **Subtitles Lingarr writes** are not tracked by nexcrate, so they don't move with the video on a rename or upgrade.
+- nexcrate's Radarr/Sonarr API is in beta and may change with a nexcrate update.
 
 ## API Integration
 Lingarr provides a RESTful API that allows you to integrate subtitle translation capabilities into your applications. You can find the complete API documentation, including a Swagger definition of all available endpoints at the 
