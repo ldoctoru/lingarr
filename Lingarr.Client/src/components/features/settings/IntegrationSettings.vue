@@ -14,11 +14,11 @@
                 <InputComponent
                     v-model="radarrApiKey"
                     :min-length="32"
-                    :max-length="32"
+                    :max-length="128"
                     :validation-type="INPUT_VALIDATION_TYPE.STRING"
                     :type="INPUT_TYPE.PASSWORD"
                     label="API key"
-                    error-message="API Key must be {minLength} characters"
+                    error-message="API Key must be at least {minLength} characters"
                     @update:validation="(val) => (isValid.radarrApiKey = val)" />
                 <div class="flex items-center space-x-2">
                     <ToggleButton v-model="radarrDefaultInclude">
@@ -39,11 +39,11 @@
                 <InputComponent
                     v-model="sonarrApiKey"
                     :min-length="32"
-                    :max-length="32"
+                    :max-length="128"
                     :validation-type="INPUT_VALIDATION_TYPE.STRING"
                     :type="INPUT_TYPE.PASSWORD"
                     label="API key"
-                    error-message="API Key must be {minLength} characters"
+                    error-message="API Key must be at least {minLength} characters"
                     @update:validation="(val) => (isValid.sonarrApiKey = val)" />
                 <div class="flex items-center space-x-2">
                     <ToggleButton v-model="sonarrDefaultInclude">
