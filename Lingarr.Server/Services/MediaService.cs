@@ -151,7 +151,7 @@ public class MediaService : IMediaService
     }
 
     /// <inheritdoc />
-    public async Task<int> GetEpisodeIdOrSyncFromSonarrEpisodeId(int episodeNumber)
+    public async Task<int> GetEpisodeIdOrSyncFromSonarrEpisodeId(long episodeNumber)
     {
         var episode = await _dbContext.Episodes.Where(s => s.SonarrId == episodeNumber).FirstOrDefaultAsync();
         if (episode != null)
@@ -177,7 +177,18 @@ public class MediaService : IMediaService
                 return 0;
             }
 
-            var show = await _showSyncService.SyncShow(episodeFetched.Show, defaultInclude);
+            // Sonarr-compatible APIs such as nexcrate embed only the show's id and title in an episode
+            var sonarrShow = episodeFetched.Show;
+            if (sonarrShow.Seasons.Count == 0 || string.IsNullOrEmpty(sonarrShow.Path))
+            {
+                sonarrShow = await _sonarrService.GetShow(sonarrShow.Id);
+                if (sonarrShow == null)
+                {
+                    return 0;
+                }
+            }
+
+            var show = await _showSyncService.SyncShow(sonarrShow, defaultInclude);
             // Find the episode id or return 0 if not found
             return show.Seasons
                 .SelectMany(s => s.Episodes)

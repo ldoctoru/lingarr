@@ -9,11 +9,11 @@ public class SonarrShow
     [JsonPropertyName("title")]
     public required string Title { get; set; }
     [JsonPropertyName("path")]
-    public required string Path { get; set; }
+    public string Path { get; set; } = string.Empty;
     [JsonPropertyName("added")]
-    public required string Added { get; set; }
+    public string? Added { get; set; }
     [JsonPropertyName("seasonFolder")]
-    public required bool SeasonFolder { get; set; }
+    public bool SeasonFolder { get; set; } = true;
     [JsonPropertyName("rootFolderPath")]
     public string? RootFolderPath { get; set; } 
     [JsonPropertyName("seasons")]

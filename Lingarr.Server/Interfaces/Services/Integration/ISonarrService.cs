@@ -17,6 +17,16 @@ public interface ISonarrService
     Task<List<SonarrShow>?> GetShows();
 
     /// <summary>
+    /// Asynchronously retrieves a single show from the Sonarr API.
+    /// </summary>
+    /// <param name="showId">The ID of the show to retrieve.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains the <see cref="SonarrShow"/>,
+    /// or <c>null</c> if the API call fails.
+    /// </returns>
+    Task<SonarrShow?> GetShow(int showId);
+
+    /// <summary>
     /// Asynchronously retrieves a list of episodes for a specified series and season from the Sonarr API.
     /// </summary>
     /// <param name="seriesNumber">The ID of the series for which episodes are to be retrieved.</param>
@@ -35,7 +45,7 @@ public interface ISonarrService
     /// A task that represents the asynchronous operation. The task result contains a <see cref="SonarrEpisode"/>
     /// object or <c>null</c> if the API call fails.
     /// </returns>
-    Task<SonarrEpisode?> GetEpisode(int episodeNumber);
+    Task<SonarrEpisode?> GetEpisode(long episodeNumber);
 
     /// <summary>
     /// Asynchronously retrieves the path information for a specified episode from the Sonarr API.
@@ -45,5 +55,5 @@ public interface ISonarrService
     /// A task that represents the asynchronous operation. The task result contains a <see cref="SonarrEpisodePath"/> 
     /// with the path information of the episode, or <c>null</c> if the API call fails.
     /// </returns>
-    Task<SonarrEpisodePath?> GetEpisodePath(int episodeNumber);
+    Task<SonarrEpisodePath?> GetEpisodePath(long episodeNumber);
 }
