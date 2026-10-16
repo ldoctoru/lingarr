@@ -142,6 +142,45 @@ public class PluginController : ControllerBase
         });
     }
 
+    /// <summary>
+    /// Verifies the provider's saved configuration. Providers that do not implement
+    /// <see cref="IConnectionTestable"/> return 404 so the UI can hide the action.
+    /// </summary>
+    [HttpPost("{provider}/test")]
+    public async Task<ActionResult<PluginConnectionResult>> TestConnection(
+        string provider,
+        CancellationToken cancellationToken)
+    {
+        var plugin = _registry.Find(provider);
+        if (plugin is null)
+        {
+            return NotFound();
+        }
+
+        try
+        {
+            var translationService = _translationServiceFactory.CreateTranslationService(plugin.Manifest.Provider);
+            if (translationService is not IConnectionTestable testable)
+            {
+                return NotFound();
+            }
+
+            return Ok(await testable.TestConnectionAsync(cancellationToken));
+        }
+        catch (ArgumentException)
+        {
+            return NotFound();
+        }
+        catch (Exception exception)
+        {
+            _logger.LogWarning(
+                exception,
+                "Connection test failed for provider {Provider}.",
+                plugin.Manifest.Provider);
+            return Ok(PluginConnectionResult.Fail(exception.Message));
+        }
+    }
+
     private static PluginResponse BuildResponse(RegisteredPlugin plugin)
     {
         return new PluginResponse

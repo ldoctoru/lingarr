@@ -34,9 +34,10 @@ public sealed class CloudflarePluginManifest : IPluginManifest
         {
             Key = "cloudflare_model",
             Label = "Translation model",
-            Type = PluginSettingType.Text,
-            Default = "@cf/meta/m2m100-1.2b",
-            Description = "Workers AI translation model identifier. Defaults to m2m100-1.2b; @cf/meta/nllb-200 is also available."
+            Type = PluginSettingType.RemoteDropdown,
+            OptionsEndpoint = "/api/plugin/cloudflare/models",
+            Default = CloudflareTranslator.DefaultModel,
+            Description = "Workers AI translation model. Defaults to m2m100-1.2b."
         }
     ];
 }

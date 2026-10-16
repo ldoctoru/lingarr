@@ -58,11 +58,13 @@ Go to the service settings, select `Cloudflare Workers AI` and fill in:
 |-------|-------------------|-------|
 | Account ID | Plain text        | Found in your dashboard URL. |
 | API token | Encrypted setting | Needs only "Workers AI: Read" permission |
-| Translation model | Plain text        | Defaults to `@cf/meta/m2m100-1.2b` |
+| Translation model | Dropdown          | Defaults to `@cf/meta/m2m100-1.2b` |
 
 ## Supported languages
 
-Cloudflare doesn't expose a "supported languages" endpoint for the translation models so in this case the plugin doesn't provide supported languages.
+Cloudflare doesn't expose a "supported languages" endpoint, so the plugin ships m2m100's language list itself. For other models it returns no list and passes language codes through unchanged.
+
+The plugin implements `IConnectionTestable`, so a **Test connection** button appears under its settings. It runs a one-word translation to check the account ID, the token and the model. Settings are read again on every request, so changes apply without a restart.
 The plugin accepts standard language codes (`en`, `nl`, `ja`, etc.). If a language pair is not supported, you will see a `TranslationException` during translation.
 
 ## Creating your own Plugin

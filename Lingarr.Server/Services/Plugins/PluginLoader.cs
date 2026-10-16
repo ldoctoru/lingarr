@@ -13,6 +13,9 @@ namespace Lingarr.Server.Services.Plugins;
 public sealed class PluginLoader
 {
     private const int HostMajorVersion = 1;
+
+    // Bump when contracts gain new types (1.1: IConnectionTestable).
+    private const int HostMinorVersion = 1;
     public const string PluginsPathEnvironmentVariable = "PLUGINS_PATH";
 
     private readonly ILogger<PluginLoader> _logger;
@@ -93,6 +96,18 @@ public sealed class PluginLoader
                 versionAttribute.Major,
                 versionAttribute.Minor,
                 HostMajorVersion);
+            return;
+        }
+
+        if (versionAttribute.Minor > HostMinorVersion)
+        {
+            _logger.LogWarning(
+                "Plugin {PluginFile} targets plugin API version {Major}.{Minor} but this Lingarr supports {HostMajorVersion}.{HostMinorVersion}. Update Lingarr to use this plugin, skipping.",
+                pluginFile,
+                versionAttribute.Major,
+                versionAttribute.Minor,
+                HostMajorVersion,
+                HostMinorVersion);
             return;
         }
 

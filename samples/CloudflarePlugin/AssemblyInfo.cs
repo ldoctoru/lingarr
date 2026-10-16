@@ -1,3 +1,3 @@
 ﻿using Lingarr.Contracts.Plugins;
 
-[assembly: LingarrPluginApiVersion(1, 0)]
+[assembly: LingarrPluginApiVersion(1, 1)]

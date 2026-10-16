@@ -44,3 +44,8 @@ export interface IPluginOptionsResponse {
     options?: LabelValue[] | null
     message?: string | null
 }
+
+export interface IPluginConnectionResult {
+    success: boolean
+    message?: string | null
+}

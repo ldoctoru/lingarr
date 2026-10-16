@@ -16,6 +16,7 @@ import {
     IPluginManifest,
     IPluginOptionsResponse,
     IPluginStatus,
+    IPluginConnectionResult,
     IPluginSummary,
     IProofreadLineApplyRequest,
     IProofreadLineRequest
@@ -43,6 +44,7 @@ export interface IPluginService {
     list(): Promise<IPluginSummary[]>
     getManifest(provider: string): Promise<IPluginManifest>
     getStatus(provider: string): Promise<IPluginStatus>
+    testConnection(provider: string): Promise<IPluginConnectionResult>
     getOptions(endpoint: string): Promise<IPluginOptionsResponse>
 }
 
