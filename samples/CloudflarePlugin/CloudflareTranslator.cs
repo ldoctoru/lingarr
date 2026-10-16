@@ -1,4 +1,4 @@
-using System.Net;
+﻿using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using Lingarr.Contracts.Exceptions;
@@ -263,8 +263,7 @@ public sealed class CloudflareTranslator : ITranslationService, IConnectionTesta
         {
             Options =
             [
-                new LabelValue { Label = "m2m100 (1.2B)", Value = "@cf/meta/m2m100-1.2b" },
-                new LabelValue { Label = "NLLB-200 (distilled 600M)", Value = "@cf/meta/nllb-200" }
+                new LabelValue { Label = "m2m100 (1.2B)", Value = "@cf/meta/m2m100-1.2b" }
             ]
         });
     }

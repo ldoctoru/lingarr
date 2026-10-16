@@ -10,7 +10,7 @@ public sealed class CloudflarePluginManifest : IPluginManifest
     public string DisplayName => "Cloudflare Workers AI";
 
     public string? Description =>
-        "Translates subtitles using Cloudflare Workers AI. Supports the models @cf/meta/m2m100-1.2b and @cf/meta/nllb-200.";
+        "Translates subtitles using Cloudflare Workers AI. Uses the @cf/meta/m2m100-1.2b translation model.";
 
     public IReadOnlyList<PluginSettingField> Settings { get; } =
     [
